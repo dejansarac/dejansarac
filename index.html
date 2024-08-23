@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Async LOTTO</title>
+
+<style>
+* {
+margin: 0;
+padding: 0;
+color: white;
+font-family: monospace;
+}
+body {
+background-color: #2b2b2b;
+}
+#header {
+margin-top: 1rem;
+text-align: center;
+font-size: 2rem;
+}
+#header p {
+font-size: 1rem;
+margin: 0 5rem;
+}
+#tiket {
+margin: 2rem 2rem;
+padding-top: 1rem;
+background-color:  #1976D2;
+border-radius: 25px;
+text-align: center;
+}
+#nums {
+display: flex;
+justify-content: center;
+}
+input[type="number"] {
+width: 2.5rem;
+height: 2.5rem;
+margin: 1rem 0.4rem;
+background-color: #2b2b2b;
+border: none;
+border-radius: 10px;
+text-align: center;
+}
+#submit {
+width: 90%;
+height: 2.8rem;
+font-size: 1.5rem;
+background-color: #2b2b2b;
+margin: 0 1.2rem 1.5rem 1.2rem;
+border-radius: 0 0 25px 25px;
+}
+#submit:hover {
+color: #1976D2;
+}
+#end {
+display: none;
+}
+#end div {
+display: flex;
+justify-content: center;
+}
+#end div h3 {
+width: 2.5rem;
+height: 2.5rem;
+margin: 1rem 0.4rem;
+background-color: #2b2b2b;
+border: none;
+border-radius: 10px;
+text-align: center;
+padding-top: 0.5rem;
+}
+#zarada {
+margin: 1rem 0;
+color: lightgreen;
+font-weight: bold;
+}
+#ended {
+width: 90%;
+height: 2.8rem;
+font-size: 1.5rem;
+background-color: #2b2b2b;
+margin: 0 1.2rem 1.5rem 1.2rem;
+border-radius: 0 0 25px 25px;
+}
+</style>
+
+</head>
+<body>
+
+<div id="header">
+<h3>ASYNC LOTTO IGRA</h3>
+<p>Ova igra je slična igri loto. Cilj je pogoditi 7 brojeva. Kod ove igre brojevi se kreću od 1 do 20 (gde 1 i 20 takodje pripadaju). Pobeda je kada na istom mestu stoji isti broj. Srećno!</p>
+</div>
+
+<div id="tiket">
+<h2>Vaš LOTTO tiket</h2>
+<p style="font-size: 1rem;" id="help">Brojevi od 1 do 20<br>(1 i 20 se računaju takodje)</p>
+<div id="nums">
+<input type="number" id="n1">
+<input type="number" id="n2">
+<input type="number" id="n3">
+<input type="number" id="n4">
+<input type="number" id="n5">
+<input type="number" id="n6">
+<input type="number" id="n7">
+</div>
+<button id="submit" onclick="tiket()">Kupi tiket</button>
+<div id="end">
+<h3>Vaši brojevi</h3>
+<div>
+<h3 id="z1"></h3>
+<h3 id="z2"></h3>
+<h3 id="z3"></h3>
+<h3 id="z4"></h3>
+<h3 id="z5"></h3>
+<h3 id="z6"></h3>
+<h3 id="z7"></h3>
+</div>
+<h3>Lotto brojevi</h3>
+<div>
+<h3 id="k1"></h3>
+<h3 id="k2"></h3>
+<h3 id="k3"></h3>
+<h3 id="k4"></h3>
+<h3 id="k5"></h3>
+<h3 id="k6"></h3>
+<h3 id="k7"></h3>
+</div>
+<h3 id="pogg">Pogodjeni brojevi: </h3>
+<h2 id="zarada">Zarada: </h2>
+<button id="ended" onclick="ended()">Pokušaj ponovo</button>
+</div>
+</div>
+<div>
+<h2>Strategije</h2>
+<br>
+<h3>• Nasumična sreća</h3>
+<p>Najobičnija strategija za Lotto. Jednostavno pogadjate brojeve nasumično.</p>
+<br>
+<h3>• Ponavljački broj</h3>
+<p>Ako primetite da se jedan broj ponavlja više nego ostali, možete da se kladite na taj broj na svih 7 mesta.</p>
+<br>
+<h3>• Mešovita strategija</h3>
+<p>Možete kombinovati prve dve strategije. Nasumično birati brojeve gde možete ponavljati neke brojeve.</p>
+</div>
+
+<script>
+const help = document.getElementById('help');
+const nums = document.getElementById('nums');
+const submit = document.getElementById('submit');
+const end = document.getElementById('end');
+const n1 = document.getElementById('n1');
+const n2 = document.getElementById('n2');
+const n3 = document.getElementById('n3');
+const n4 = document.getElementById('n4');
+const n5 = document.getElementById('n5');
+const n6 = document.getElementById('n6');
+const n7 = document.getElementById('n7');
+const z1 = document.getElementById('z1');
+const z2 = document.getElementById('z2');
+const z3 = document.getElementById('z3');
+const z4 = document.getElementById('z4');
+const z5 = document.getElementById('z5');
+const z6 = document.getElementById('z6');
+const z7 = document.getElementById('z7');
+const k1 = document.getElementById('k1');
+const k2 = document.getElementById('k2');
+const k3 = document.getElementById('k3');
+const k4 = document.getElementById('k4');
+const k5 = document.getElementById('k5');
+const k6 = document.getElementById('k6');
+const k7 = document.getElementById('k7');
+function tiket() {
+if (n1.value == 0 || n2.value == 0 || n3.value == 0 || n4.value == 0 || n5.value == 0 || n6.value == 0 || n7.value == 0) {
+alert("Broj ne sme biti 0");
+return;
+}
+if (n1.value < 0 || n2.value < 0 || n3.value < 0 || n4.value < 0 || n5.value < 0 || n6.value < 0 || n7.value < 0) {
+alert("Broj ne sme biti manji od 0");
+return;
+}
+if (n1.value > 20 || n2.value > 20 || n3.value > 20 || n4.value > 20 || n5.value > 20 || n6.value > 20 || n7.value > 20) {
+alert("Broj ne sme biti veći od 20");
+return;
+}
+let list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+let p1 = list[Math.floor(Math.random() * list.length)];
+list.splice(list.indexOf(p1), 1);
+let p2 = list[Math.floor(Math.random() * list.length)];
+list.splice(list.indexOf(p2), 1);
+let p3 = list[Math.floor(Math.random() * list.length)];
+list.splice(list.indexOf(p3), 1);
+let p4 = list[Math.floor(Math.random() * list.length)];
+list.splice(list.indexOf(p4), 1);
+let p5 = list[Math.floor(Math.random() * list.length)];
+list.splice(list.indexOf(p5), 1);
+let p6 = list[Math.floor(Math.random() * list.length)];
+list.splice(list.indexOf(p6), 1);
+let p7 = list[Math.floor(Math.random() * list.length-1)];
+console.log(list, p1, p2, p3, p4, p5, p6, p7);
+let pog = 0;
+if (n1.value == p1) { pog++; z1.style.color = "lightblue"; k1.style.color = "lightblue"; }
+if (n2.value == p2) { pog++; z2.style.color = "lightblue"; k2.style.color = "lightblue"; }
+if (n3.value == p3) { pog++; z3.style.color = "lightblue"; k3.style.color = "lightblue"; }
+if (n4.value == p4) { pog++; z4.style.color = "lightblue"; k4.style.color = "lightblue"; }
+if (n5.value == p5) { pog++; z5.style.color = "lightblue"; k5.style.color = "lightblue"; }
+if (n6.value == p6) { pog++; z6.style.color = "lightblue"; k6.style.color = "lightblue"; }
+if (n7.value == p7) { pog++; z7.style.color = "lightblue"; k7.style.color = "lightblue"; }
+let zaradaa = "";
+if (pog == 0) { zaradaa = "0€"; }
+if (pog == 1) { zaradaa = "100€"; }
+if (pog == 2) { zaradaa = "500€"; }
+if (pog == 3) { zaradaa = "1200€"; }
+if (pog == 4) { zaradaa = "2200€"; }
+if (pog == 5) { zaradaa = "3600€"; }
+if (pog == 6) { zaradaa = "4400€"; }
+if (pog == 7) { zaradaa = "8000€"; }
+help.style.display = "none";
+nums.style.display = "none";
+submit.style.display = "none";
+end.style.display = "initial";
+z1.innerText = n1.value;
+z2.innerText = n2.value;
+z3.innerText = n3.value;
+z4.innerText = n4.value;
+z5.innerText = n5.value;
+z6.innerText = n6.value;
+z7.innerText = n7.value;
+k1.innerText = p1;
+k2.innerText = p2;
+k3.innerText = p3;
+k4.innerText = p4;
+k5.innerText = p5;
+k6.innerText = p6;
+k7.innerText = p7;
+pogg.innerText = "Pogodjenih brojeva: " + pog.toString();
+zarada.innerText = "Zarada: " + zaradaa;
+}
+function ended() {
+n1.value = null;
+n2.value = null;
+n3.value = null;
+n4.value = null;
+n5.value = null;
+n6.value = null;
+n7.value = null;
+z1.style.color = "white";
+z2.style.color = "white";
+z3.style.color = "white";
+z4.style.color = "white";
+z5.style.color = "white";
+z6.style.color = "white";
+z7.style.color = "white";
+k1.style.color = "white";
+k2.style.color = "white";
+k3.style.color = "white";
+k4.style.color = "white";
+k5.style.color = "white";
+k6.style.color = "white";
+k7.style.color = "white";
+help.style.display = "initial";
+nums.style.display = "flex";
+submit.style.display = "initial";
+end.style.display = "none";
+}
+</script>
+
+</body>
+</html>
