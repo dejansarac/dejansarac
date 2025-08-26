@@ -7,7 +7,7 @@ body {
 
 #page {
   display: grid;
-  grid-template-column: 50% 50%;
+  grid-template-row: 50% 50%;
 }
 
 img {
