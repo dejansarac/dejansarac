@@ -1,7 +1,13 @@
 body {
-margin: 0;
-padding: 0;
-background-color: pink;
+  margin: 0;
+  padding: 0;
+  background-color: pink;
+  display: grid;
+}
+
+#page {
+  display: grid;
+  grid-template-column: 50% 50%;
 }
 
 img {
