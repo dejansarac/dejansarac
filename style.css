@@ -1,16 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Anta&display=swap');
+
+* {
+	font-family: 'Anta', Arial;
+	margin: 0;
+	padding: 0;
+}
+
 body {
-  margin: 0;
-  padding: 0;
-  background-color: pink;
-  display: grid;
+	background-image: url("https://scontent.fbeg5-1.fna.fbcdn.net/v/t39.30808-6/480568927_2387311008283922_1420992646927582891_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=833d8c&_nc_ohc=lTI-lNUaC7oQ7kNvwGroPFi&_nc_oc=AdnuDiUbU0uzeflNyyktfdWQZ_Z3Dq-mT2BRIs12kXgNmpxuUEElM1r-cZg-TUi3EPw&_nc_zt=23&_nc_ht=scontent.fbeg5-1.fna&_nc_gid=ASppDjWzwEwzshN5_u1E8Q&oh=00_AfU-Ry-pWO3kaCEgN3d8wZqi9CvlUr7nAQ9UnjBNHhRqQw&oe=68B62656");
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: grid;
+}
+
+#header {
+	background-color: rgba(255, 242, 239, 0.7);
+	border-radius: 0 0 30px 30px;
+	backdrop-filter: blur(3px);
+	display: grid;
+	grid-template-columns: 10% 70% 20%;
+	user-select: none;
+}
+
+#header div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#header div:nth-of-type(1) img {
+	display: block;
+	margin: auto;
+	width: 80%;
+	height: auto;
+	cursor: pointer;
+}
+
+#header div:nth-of-type(3) img {
+	display: block;
+	margin: auto;
+	width: 40%;
+	height: auto;
 }
 
 #page {
-  display: grid;
-  grid-template-row: 50% 50%;
+	border-radius: 30px;
+	margin: 1rem;
+	display: grid;
+	grid-template-columns: 60% 40%;
+	color: black;
+	background-color: rgb(255, 255, 255, 0.50);
+	backdrop-filter: blur(5px);
 }
 
-img {
-  width: 50%;
-  height: auto;
+#page h1 {
+	margin: 2rem;
+	text-align: center;
+}
+
+#info {
+	display: grid;
+	grid-template-columns: 50% 50%;
+}
+
+#info div {
+	color: white;
+	margin: 10px 0 10px 10px;
+	display: grid;
+	padding: 10px 0 10px 10px;
+	border-radius: 30px 0 0 30px;
+	background-color: rgb(0, 0, 0, 0.70);
+}
+
+#info div:nth-of-type(1) p {
+	text-align: center;
+	font-size: 15px;
+}
+
+#page img {
+	padding: 10px 10px 10px 0;
+	border-radius: 0 30px 30px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 93%;
+	height: auto;
+}
+
+#neon {
+	margin: 1rem;
+	border-radius: 30px;
+	background: linear-gradient(90deg,rgba(255, 0, 0, 1) 0%, rgba(237, 204, 83, 1) 10%, rgba(222, 237, 83, 1) 20%, rgba(114, 237, 83, 1) 30%, rgba(83, 237, 219, 1) 40%, rgba(83, 137, 237, 1) 50%, rgba(83, 88, 237, 1) 60%, rgba(163, 83, 237, 1) 70%, rgba(237, 83, 234, 1) 80%, rgba(237, 83, 163, 1) 90%, rgba(237, 83, 83, 1) 100%);
+	animation: anim 5s ease infinite alternate;
+	background-size: 200% 200%;
+}
+
+@keyframes anim {
+	0% {
+		background-position: 0% 100%;
+	}
+	100% {
+		background-position: 100% 0%;
+	}
+}
+
+#page > div:nth-of-type(1) p {
+	padding: 10px;
+	font-size: 20px;
 }
